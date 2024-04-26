@@ -1,0 +1,399 @@
+//Player input 
+
+    1. import json
+    2. from typing import List, Dict
+    3. from dataclasses import dataclass
+    4. from UnityEngine.InputSystem import InputActionAsset, InputActionMap, InputAction, InputActionBinding
+    5. 
+    6. @dataclass
+    7. class InputActionInfo:
+    8.     name: str
+    9.     type: str
+    10.     id: str
+    11.     expectedControlType: str
+    12.     processors: str
+    13.     interactions: str
+    14.     initialStateCheck: bool
+    15. 
+    16. @dataclass
+    17. class InputBindingInfo:
+    18.     name: str
+    19.     id: str
+    20.     path: str
+    21.     interactions: str
+    22.     processors: str
+    23.     groups: str
+    24.     action: str
+    25.     isComposite: bool
+    26.     isPartOfComposite: bool
+    27. 
+    28. @dataclass
+    29. class InputMapInfo:
+    30.     name: str
+    31.     id: str
+    32.     actions: List[InputActionInfo]
+    33.     bindings: List[InputBindingInfo]
+    34. 
+    35. @dataclass
+    36. class PlayerInputInfo:
+    37.     name: str
+    38.     maps: List[InputMapInfo]
+    39. 
+    40. def parse_input_action_asset(json_data: str) -> PlayerInputInfo:
+    41.     data = json.loads(json_data)
+    42.     player_input = PlayerInputInfo(
+    43.         name=data["name"],
+    44.         maps=[
+    45.             InputMapInfo(
+    46.                 name=map_data["name"],
+    47.                 id=map_data["id"],
+    48.                 actions=[
+    49.                     InputActionInfo(
+    50.                         name=action_data["name"],
+    51.                         type=action_data["type"],
+    52.                         id=action_data["id"],
+    53.                         expectedControlType=action_data["expectedControlType"],
+    54.                         processors=action_data["processors"],
+    55.                         interactions=action_data["interactions"],
+    56.                         initialStateCheck=action_data["initialStateCheck"]
+    57.                     )
+    58.                     for action_data in map_data["actions"]
+    59.                 ],
+    60.                 bindings=[
+    61.                     InputBindingInfo(
+    62.                         name=binding_data["name"],
+    63.                         id=binding_data["id"],
+    64.                         path=binding_data["path"],
+    65.                         interactions=binding_data["interactions"],
+    66.                         processors=binding_data["processors"],
+    67.                         groups=binding_data["groups"],
+    68.                         action=binding_data["action"],
+    69.                         isComposite=binding_data["isComposite"],
+    70.                         isPartOfComposite=binding_data["isPartOfComposite"]
+    71.                     )
+    72.                     for binding_data in map_data["bindings"]
+    73.                 ]
+    74.             )
+    75.             for map_data in data["maps"]
+    76.         ]
+    77.     )
+    78.     return player_input
+    79. 
+    80. player_input_info = parse_input_action_asset("""
+    81. {
+    82.     "name": "Player Input",
+    83.     "maps": [
+    84.         {
+    85.             "name": "OnFoot",
+    86.             "id": "a24473d2-ba6b-4d93-b342-1eff9ba21fe4",
+    87.             "actions": [
+    88.                 {
+    89.                     "name": "Movement1",
+    90.                     "type": "Value",
+    91.                     "id": "8591d1e5-bdc4-45cf-afb7-98ee6573c09a",
+    92.                     "expectedControlType": "Vector2",
+    93.                     "processors": "",
+    94.                     "interactions": "",
+    95.                     "initialStateCheck": true
+    96.                 }
+    97.             ],
+    98.             "bindings": [
+    99.                 {
+    100.                     "name": "WASD",
+    101.                     "id": "bdf8e0de-762c-4a17-a721-6629c460da32",
+    102.                     "path": "2DVector",
+    103.                     "interactions": "",
+    104.                     "processors": "",
+    105.                     "groups": "",
+    106.                     "action": "Movement1",
+    107.                     "isComposite": true,
+    108.                     "isPartOfComposite": false
+    109.                 },
+    110.                 {
+    111.                     "name": "up",
+    112.                     "id": "9c22752a-4514-4407-a005-34e5857bff54",
+    113.                     "path": "W [Keyboard]",
+    114.                     "interactions": "",
+    115.                     "processors": "",
+    116.                     "groups": "",
+    117.                     "action": "Movement1",
+    118.                     "isComposite": false,
+    119.                     "isPartOfComposite": true
+    120.                 },
+    121.                 {
+    122.                     "name": "down",
+    123.                     "id": "84763ae8-3116-40f5-b124-ac52070190c7",
+    124.                     "path": "S [Keyboard]",
+    125.                     "interactions": "",
+    126.                     "processors": "",
+    127.                     "groups": "",
+    128.                     "action": "Movement1",
+    129.                     "isComposite": false,
+    130.                     "isPartOfComposite": true
+    131.                 },
+    132.                 {
+    133.                     "name": "left",
+    134.                     "id": "2d08683e-ef7f-4167-a2a8-381a7a67f1d7",
+    135.                     "path": "A [Keyboard]",
+    136.                     "interactions": "",
+    137.                     "processors": "",
+    138.                     "groups": "",
+    139.                     "action": "Movement1",
+    140.                     "isComposite": false,
+    141.                     "isPartOfComposite": true
+    142.                 }
+    143.             ]
+    144.         }
+    145.     ]
+    146. }
+    147. """)
+    148. {
+    149.     "name": "right",
+    150.     "id": "7c33fca7-3dd5-4ca5-aec4-ad6202a45825",
+    151.     "path": "D [Keyboard]",
+    152.     "interactions": "",
+    153.     "processors": "",
+    154.     "groups": "",
+    155.     "action": "Movement1",
+    156.     "isComposite": False,
+    157.     "isPartOfComposite": True
+    158. },
+    159. {
+    160.     "name": "Left Stick",
+    161.     "id": "1ca2c52b-8bc9-42ab-aa7f-a2344461400d",
+    162.     "path": "2DVector",
+    163.     "interactions": "",
+    164.     "processors": "",
+    165.     "groups": "",
+    166.     "action": "Movement1",
+    167.     "isComposite": True,
+    168.     "isPartOfComposite": False
+    169. },
+    170. {
+    171.     "name": "up",
+    172.     "id": "8708d2f6-b87b-4058-8d46-537ba498ef1c",
+    173.     "path": "left stick/up [gamepad]",
+    174.     "interactions": "",
+    175.     "processors": "",
+    176.     "groups": "",
+    177.     "action": "Movement1",
+    178.     "isComposite": False,
+    179.     "isPartOfComposite": True
+    180. },
+    181. {
+    182.     "name": "down",
+    183.     "id": "36329994-1fa2-4edc-94da-668215da103c",
+    184.     "path": "left stick/down [gamepad]",
+    185.     "interactions": "",
+    186.     "processors": "",
+    187.     "groups": "",
+    188.     "action": "Movement1",
+    189.     "isComposite": False,
+    190.     "isPartOfComposite": True
+    191. },
+    192. {
+    193.     "name": "left",
+    194.     "id": "55dd7b60-2834-4e92-acb9-df89e98becd1",
+    195.     "path": "left stick/left [gamepad]",
+    196.     "interactions": "",
+    197.     "processors": "",
+    198.     "groups": "",
+    199.     "action": "Movement1",
+    200.     "isComposite": False,
+    201.     "isPartOfComposite": True
+    202. },
+    203. {
+    204.     "name": "right",
+    205.     "id": "541ea950-d64f-4f9c-8948-26b68aa5327c",
+    206. }
+    207. input_dict = {
+    208.     "path": "left stick/right [gamepad]",
+    209.     "interactions": "",
+    210.     "processors": "",
+    211.     "groups": "",
+    212.     "action": "Movement1",
+    213.     "isComposite": False,
+    214.     "isPartOfComposite": True
+    215. }
+    216. 
+    217. input_dict_2 = {
+    218.     "name": "",
+    219.     "id": "101e7a87-8527-449a-8c38-f1c9b568f5e9",
+    220.     "path": "Space [Keyboard]",
+    221.     "interactions": "",
+    222.     "processors": "",
+    223.     "groups": "",
+    224.     "action": "Movement1",
+    225.     "isComposite": False,
+    226.     "isPartOfComposite": False
+    227. }
+    228. 
+
+//Input manager
+import UnityEngine
+from UnityEngine.InputSystem import PlayerInput
+
+class InputManager(MonoBehaviour):
+    def Awake(self):
+        self.playerInput = self.NewPlayerInput()
+        self.onFoot = self.playerInput.OnFoot
+
+    def Update(self):
+        pass
+
+    def OnEnable(self):
+        self.onFoot.Enable()
+
+    def OnDisable(self):
+        self.onFoot.Disable()
+
+class PlayerMotor(MonoBehaviour):
+    def Start(self):
+        self.controller = self.GetComponent(CharacterController)
+
+    def Update(self):
+        pass
+
+    def ProcessMove(self, input):
+        moveDirection = Vector3.zero
+        moveDirection.x = input.x
+        moveDirection.z = input.y
+        self.controller.Move(self.transform.TransformDirection(moveDirection) * self.speed * Time.deltaTime)
+
+//Player Motor
+
+import UnityEngine
+
+class PlayerMotor(MonoBehaviour):
+    def __init__(self):
+        self.playerVelocity = Vector3.zero
+        self.speed = 5.0
+        self.controller = None
+
+    def Start(self):
+        self.controller = self.GetComponent(CharacterController)
+
+    def Update(self):
+        pass
+
+    def ProcessMove(self, input):
+        move_direction = Vector3.zero
+        move_direction.x = input.x
+        move_direction.z = input.y
+        self.controller.Move(self.transform.TransformDirection(move_direction) * self.speed * Time.deltaTime)
+
+//Player Look
+1. import sys
+2. import datetime
+3.
+4. from unityengine import *
+5.
+6. class PlayerLook(MonoBehaviour):
+7. 
+8.   def __init__(self):
+9.       self.cam = None
+10.     
+11.   public float xSensitivity = 30.0
+12.   
+13.   public float ySensitivity = 30.0
+14.  
+15.   def ProcessLook(self, input):
+16.  
+17.       xRotation -= (input.y * Time.deltaTime) * ySensitivity
+18.  
+19.       xRotation = max(min(xRotation, 80), -80)
+20.  
+21.       self.cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0)out = input.x
+22.  
+23.       transform.Rotate(Vector3.up * (input.x * Time.deltaTime) * xSensitivity)
+24. 
+25.
+
+
+//Interactable
+1. import sys
+2. import inspect
+3. 
+4. 
+5. 
+6. class Interactable(object):
+7.  def __init__(self):
+8.      self.promptMessage = None
+9. 
+10. 
+11. 
+12.     def BaseInteract(self):
+13.         self.__interact__()
+14. 
+15. 
+16.     def __interact__(self):
+17.         pass
+18. 
+19. 
+20.     def override(self):
+21.         pass
+22. 
+23. 
+24. 
+25.
+
+
+//Player Interact
+
+import sys
+2. import itertools
+3. from unityengine import *
+4. 
+5. class PlayerInteract(MonoBehaviour):
+6.  def __init__(self):
+7.      self.cam = self.GetComponent(Camera)
+8.      self.distance = 3
+9.      self.mask = LayerMask.GetMask("Ground")
+10.     def start(self):
+11.         self.playerUI = self.GetComponent("PlayerUI")
+12.     def update(self):
+13.         self.playerUI.UpdateText("")
+14.         ray_origin = self.cam.transform.position
+15.         ray = Ray(ray_origin, self.cam.transform.forward)
+16.         debug.drawray(ray_origin, ray.direction * self.distance, Color(0, 0, 0))
+17.         hit_info = None
+18.         if Physics.Raycast(ray, hit_info, self.distance, self.mask):
+19.             if hit_info.collider.gameobject.GetComponent("Interactable"):
+20.                 self.playerUI.UpdateText(hit_info.collider.gameobject.GetComponent("Interactable").promptMessage)
+21.     return
+22.
+
+//Keypad
+
+import collections
+2. import collections.abc
+3. import unityengine
+4. 
+ 5. class Keypad(unityengine.MonoBehaviour):
+ 6. 
+ 7.    def start(self):
+ 8.       # Start is called before the first frame update
+ 9.       pass
+10. 
+11.    def update(self):
+12.       # Update is called once per frame
+13.       pass
+14. 
+15.    def interact(self):
+16.       debug.log("Interacted with" + self.gameObject.name)
+17.
+
+//Interactable Editor
+ import unity_editor
+2. 
+ 3. [UnityEditor.CustomEditor(typeof(Interactable), True)]
+ 4. 
+ 5. class InteractableEditor(UnityEditor.Editor):
+ 6.     def OnInspectorGUI(self):
+ 7.         interactable = self.target as Interactable
+ 8.         UnityEditor.Editor.OnInspectorGUI(self)
+ 9.         if interactable.useEvents:
+ 10.            interactable.gameObject.AddComponent<InteractionEvent>()
+ 11.    def
+18. 
+19. 
