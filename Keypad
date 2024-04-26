@@ -1,0 +1,23 @@
+    1. using System.Collections;
+    2. using System.Collections.Generic;
+    3. using UnityEngine;
+    4. 
+    5. public class Keypad : MonoBehaviour
+    6. {
+    7.     // Start is called before the first frame update
+    8.     void Start()
+    9.     {
+    10.         
+    11.     }
+    12. 
+    13.     // Update is called once per frame
+    14.     void Update()
+    15.     {
+    16.         
+    17.     }
+    18. 
+    19.     protected override void Interact()
+    20.     {
+    21.         Debug.Log("Interacted with" + gameObject.name);
+    22.     }
+    23. }
