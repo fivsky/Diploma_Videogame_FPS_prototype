@@ -1,0 +1,25 @@
+    1. using System.Collections; 
+    2. using System.Collections.Generic; 
+    3. using UnityEngine;  
+    4. public class PlayerMotor : MonoBehaviour 
+    5. {     
+    6. private Vector3 playerVelocity;     
+    7. public float speed 5f;      
+    8. // Start is called before the first frame update     
+    9. void Start()     
+    10. {         
+    11. controller = GetComponent<CharacterController>();
+    12.      }     
+    13.  // Update is called once per frame     
+    14. void Update()    
+    15.  {              
+    16. }    
+    17.  //receive the inputs for our InputManager.cs and apply them to our character controller.    
+    18.  public void 
+    19. Process Move(Vector2 input)     
+    20. {         
+    21. Vector3 moveDirection = Vector3.zero;         
+    22. moveDirection.x = input.x;         
+    23. moveDirection.z = input.y;         controller.Move(transform.TransformDirection(moveDirection) * speed * Time.deltaTime);      
+    24. }
+    25. }
