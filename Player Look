@@ -11,3 +11,14 @@
     11. public float ySensitivity = 30f; 
     12. public void ProcessLook(Vector2 input) 
     13. { 
+    14. float mouseX = input.x; 
+    15. float mouseY = input.y; 
+    16. // calculate camera rotation for looking up and down 
+    17. xRotation -= (mouseY * Time.deltaTime) *ySensitivity; 
+    18. xRotation = Mathf.Clamp(xRotation, -80f, 80f); 
+    19. //apply this to our camera transform. 
+    20. cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+    21. //rotate player to look left and right 
+    22. transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) *xSensitivity); 
+    23. } 
+    24. }
