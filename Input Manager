@@ -1,0 +1,25 @@
+
+    1. using System.Collections; 
+    2. using System.Collections.Generic; 
+    3. using UnityEngine; 
+    4. using UnityEngine.InputSystem; 
+    5. public class InputManager : MonoBehaviour 
+    6. { 
+    7. private PlayerInput playerInput; 
+    8. private PlayerInput.OnFootActions onFoot; 
+    9. // Start is called before the first frame update 
+    10. void Awake() 
+    11. { 
+    12. playerInput = NewPlayerInput(); 
+    13. onFoot = playerInput.OnFoot; 
+    14. } 
+    15. // Update is called once per frame void Update() 
+    16. { } Private void OnEnable()
+    17.  { 
+    18. onFoot.Enable(); 
+    19. } 
+    20. Private void OnDisable() 
+    21. { 
+    22. onFoot.Disable(); 
+    23. } 
+    24. }
