@@ -1,0 +1,17 @@
+
+    1. using UnityEditor;
+    2. 
+    3. [CustomEditor(typeof(Interactable),true)]
+    4. 
+    5. public class InteractableEditor : Editor
+    6. {
+    7.    public override void OnInspectorGUI()
+    8.    {
+    9.         Interactable interactable = (Interactable)target;
+    10.         base.OnInspectorGUI();
+    11.         if (interactable.useEvents)
+    12.         {
+    13.             interactable.gameObject.AddComponent<InteractionEvent>();
+    14.         }
+    15.     }
+    16. }
