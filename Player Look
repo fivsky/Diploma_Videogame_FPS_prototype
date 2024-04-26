@@ -1,0 +1,13 @@
+    1. 
+    2. using System.Collections; 
+    3. using System.Collections.Generic; 
+    4. using UnityEngine; 
+    5. 
+    6. public class PlayerLook : MonoBehaviour 
+    7. { 
+    8. public Camera cam; 
+    9. private float xRotation = 0f; 
+    10. public float xSensitivity = 30f;
+    11. public float ySensitivity = 30f; 
+    12. public void ProcessLook(Vector2 input) 
+    13. { 
