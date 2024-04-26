@@ -1,0 +1,168 @@
+    1. 
+    2. using System;
+    3. using System.Collections;
+    4. using System.Collections.Generic;
+    5. using UnityEngine.InputSystem;
+    6. using UnityEngine.InputSystem.Utilities;
+    7. 
+    8. public partial class @PlayerInput: IInputActionCollection2, IDisposable
+    9. {
+    10.     public InputActionAsset asset { get; }
+    11.     public @PlayerInput()
+    12.     {
+    13.         asset = InputActionAsset.FromJson(@"{
+    14.     ""name"": ""Player Input"",
+    15.     ""maps"": [
+    16.         {
+    17.             ""name"": ""OnFoot"",
+    18.             ""id"": ""a24473d2-ba6b-4d93-b342-1eff9ba21fe4"",
+    19.             ""actions"": [
+    20.                 {
+    21.                     ""name"": ""Movement1"",
+    22.                     ""type"": ""Value"",
+    23.                     ""id"": ""8591d1e5-bdc4-45cf-afb7-98ee6573c09a"",
+    24.                     ""expectedControlType"": ""Vector2"",
+    25.                     ""processors"": """",
+    26.                     ""interactions"": """",
+    27.                     ""initialStateCheck"": true
+    28.                 }
+    29.             ],
+    30.             ""bindings"": [
+    31.                 {
+    32.                     ""name"": ""WASD"",
+    33.                     ""id"": ""bdf8e0de-762c-4a17-a721-6629c460da32"",
+    34.                     ""path"": ""2DVector"",
+    35.                     ""interactions"": """",
+    36.                     ""processors"": """",
+    37.                     ""groups"": """",
+    38.                     ""action"": ""Movement1"",
+    39.                     ""isComposite"": true,
+    40.                     ""isPartOfComposite"": false
+    41.                 },
+    42.                 {
+    43.                     ""name"": ""up"",
+    44.                     ""id"": ""9c22752a-4514-4407-a005-34e5857bff54"",
+    45.                     ""path"": ""W [Keyboard]"",
+    46.                     ""interactions"": """",
+    47.                     ""processors"": """",
+    48.                     ""groups"": """",
+    49.                     ""action"": ""Movement1"",
+    50.                     ""isComposite"": false,
+    51.                     ""isPartOfComposite"": true
+    52.                 },
+    53.                 {
+    54.                     ""name"": ""down"",
+    55.                     ""id"": ""84763ae8-3116-40f5-b124-ac52070190c7"",
+    56.                     ""path"": ""S [Keyboard]"",
+    57.                     ""interactions"": """",
+    58.                     ""processors"": """",
+    59.                     ""groups"": """",
+    60.                     ""action"": ""Movement1"",
+    61.                     ""isComposite"": false,
+    62.                     ""isPartOfComposite"": true
+    63.                 },
+    64.                 {
+    65.                     ""name"": ""left"",
+    66.                     ""id"": ""2d08683e-ef7f-4167-a2a8-381a7a67f1d7"",
+    67.                     ""path"": ""A [Keyboard]"",
+    68.                     ""interactions"": """",
+    69.                     ""processors"": """",
+    70.                     ""groups"": """",
+    71.                     ""action"": ""Movement1"",
+    72.                     ""isComposite"": false,
+    73.                     ""isPartOfComposite"": true
+    74.                 },
+    75.                 {
+    76.                     ""name"": ""right"",
+    77.                     ""id"": ""7c33fca7-3dd5-4ca5-aec4-ad6202a45825"",
+    78.                     ""path"": ""D [Keyboard]"",
+    79.                     ""interactions"": """",
+    80.                     ""processors"": """",
+    81.                     ""groups"": """",
+    82.                     ""action"": ""Movement1"",
+    83.                     ""isComposite"": false,
+    84.                     ""isPartOfComposite"": true
+    85.                 },
+    86.                 {
+    87.                     ""name"": ""Left Stick"",
+    88.                     ""id"": ""1ca2c52b-8bc9-42ab-aa7f-a2344461400d"",
+    89.                     ""path"": ""2DVector"",
+    90.                     ""interactions"": """",
+    91.                     ""processors"": """",
+    92.                     ""groups"": """",
+    93.                     ""action"": ""Movement1"",
+    94.                     ""isComposite"": true,
+    95.                     ""isPartOfComposite"": false
+    96.                 },
+    97.                 {
+    98.                     ""name"": ""up"",
+    99.                     ""id"": ""8708d2f6-b87b-4058-8d46-537ba498ef1c"",
+    100.                     ""path"": ""left stick/up [gamepad]"",
+    101.                     ""interactions"": """",
+    102.                     ""processors"": """",
+    103.                     ""groups"": """",
+    104.                     ""action"": ""Movement1"",
+    105.                     ""isComposite"": false,
+    106.                     ""isPartOfComposite"": true
+    107.                 },
+    108.                 {
+    109.                     ""name"": ""down"",
+    110.                     ""id"": ""36329994-1fa2-4edc-94da-668215da103c"",
+    111.                     ""path"": ""left stick/down [gamepad]"",
+    112.                     ""interactions"": """",
+    113.                     ""processors"": """",
+    114.                     ""groups"": """",
+    115.                     ""action"": ""Movement1"",
+    116.                     ""isComposite"": false,
+    117.                     ""isPartOfComposite"": true
+    118.                 },
+    119.                 {
+    120.                     ""name"": ""left"",
+    121.                     ""id"": ""55dd7b60-2834-4e92-acb9-df89e98becd1"",
+    122.                     ""path"": ""left stick/left [gamepad]"",
+    123.                     ""interactions"": """",
+    124.                     ""processors"": """",
+    125.                     ""groups"": """",
+    126.                     ""action"": ""Movement1"",
+    127.                     ""isComposite"": false,
+    128.                     ""isPartOfComposite"": true
+    129.                 },
+    130.                 {
+    131.                     ""name"": ""right"",
+    132.                     ""id"": ""541ea950-d64f-4f9c-8948-26b68aa5327c"",
+    133.                     ""path"": ""left stick/right [gamepad]"",
+    134.                     ""interactions"": """",
+    135.                     ""processors"": """",
+    136.                     ""groups"": """",
+    137.                     ""action"": ""Movement1"",
+    138.                     ""isComposite"": false,
+    139.                     ""isPartOfComposite"": true
+    140.                 },
+    141.                 {
+    142.                     ""name"": """",
+    143.                     ""id"": ""101e7a87-8527-449a-8c38-f1c9b568f5e9"",
+    144.                     ""path"": ""Space [Keyboard]"",
+    145.                     ""interactions"": """",
+    146.                     ""processors"": """",
+    147.                     ""groups"": """",
+    148.                     ""action"": ""Movement1"",
+    149.                     ""isComposite"": false,
+    150.                     ""isPartOfComposite"": false
+    151.                 },
+    152.                 {
+    153.                     ""name"": """",
+    154.                     ""id"": ""4cb04c10-7d88-45f3-9bbe-636857922d78"",
+    155.                     ""path"": ""Button South [Gamepad]"",
+    156.                     ""interactions"": """",
+    157.                     ""processors"": """",
+    158.                     ""groups"": """",
+    159.                     ""action"": ""Movement1"",
+    160.                     ""isComposite"": false,
+    161.                     ""isPartOfComposite"": false
+    162.                 }
+    163.             ]
+    164.         },
+    165.  ...
+    166. 
+    167. <...etc...>
+    168. 
