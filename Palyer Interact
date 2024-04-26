@@ -1,0 +1,37 @@
+
+    1. using System.Collections;
+    2. using System.Collections.Generic;
+    3. using UnityEngine;
+    4. 
+    5. public class PlayerInteract : MonoBehaviour
+    6. {
+    7.     private Camera cam;
+    8.     [SerializeField]
+    9.     private float distance = 3f;
+    10.     [SerializeField]
+    11.     private LayerMask mask;
+    12.     private PlayerUI playerUI;
+    13.     // Start is called before the first frame update
+    14.     void Start()
+    15.     {
+    16.         cam = GetComponent<PlayerLook>().cam;   
+    17.         playerUI = GetComponent<PlayerUI>();
+    18.     }
+    19. 
+    20.     // Update is called once per frame
+    21.     void Update()
+    22.     {
+    23.         playerUI.UpdateText(string.Empty);
+    24.         //create a ray at the center of the camera, shooting outwards.
+    25.         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
+    26.         Debug.DrawRay(ray.origin, ray.direction * distance);
+    27.         RaycastHit hitInfo; // variable to store our collision information.
+    28.         if (Physics.Raycast(ray, out hitInfo, distance, mask))
+    29.         {
+    30.             if (hitInfo.collider.GetComponent<Interactable>() != null)
+    31.             {
+    32.               playerUI.UpdateText(hitInfo.collider.GetComponent<Interactable>().promptMessage);  
+    33.             }
+    34.         }
+    35.     }
+    36. }
